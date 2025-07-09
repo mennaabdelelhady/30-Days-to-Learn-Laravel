@@ -1,12 +1,12 @@
 <?php
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use App\Models\Job;
 
 
-Route::get('/home', function () {
-    return view('home');
+Route::get('/', function () {
+    $jobs = job::all();
+    dd($jobs);
 });
 
 Route::get('/jobs', function () {
