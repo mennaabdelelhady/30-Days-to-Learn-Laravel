@@ -3,35 +3,27 @@
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
-class Job{
-    public static function all():array{
-        return [
+$jobs= [
             ['id'=>1,'title' => 'Software Engineer', 'company' => 'Tech Corp', 'location' => 'New York'],
             ['id'=>2,'title' => 'Data Scientist', 'company' => 'Data Solutions', 'location' => 'San Francisco'],
             ['id'=>3,'title' => 'Web Developer', 'company' => 'Web Innovations', 'location' => 'Los Angeles']
     ];
-    }
-}
-
-
 Route::get('/home', function () {
     return view('home');
 });
 
-Route::get('/jobs', function () {
+Route::get('/jobs', function ()use ($jobs) {
     return view('jobs',[
-        'jobs' => Job::all()
     ]);
 });
 
-Route::get('/jobs/{id}', function ($id)  {
+Route::get('/jobs/{id}', function ($id) use ($jobs) {
     
     /*foreach ($jobs as $job) {
         if ($job['id'] == $id) {
             return view('jobs', ['job' => $job]);
         }
     }*/
-    $jobs = Job::all();
     $job=Arr::first($jobs, fn($job)=> $job['id'] == $id);
     //dump($id);
     //dd($job);

@@ -31,7 +31,6 @@ Route::get('/jobs/{id}', function ($id)  {
             return view('jobs', ['job' => $job]);
         }
     }*/
-    $jobs = Job::all();
     $job=Arr::first($jobs, fn($job)=> $job['id'] == $id);
     //dump($id);
     //dd($job);
