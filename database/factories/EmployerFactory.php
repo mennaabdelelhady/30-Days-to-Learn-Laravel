@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-
+use App\Models\Employer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class EmployerFactory extends Factory
 {
+    protected $model = Employer::class;
     /**
      * Define the model's default state.
      *
@@ -17,8 +18,8 @@ class EmployerFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->company(),
-            
+            'name' => fake()->company()
+
         ];
     }
 }
