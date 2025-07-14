@@ -9,14 +9,14 @@ use App\Models\Job;
 
 Route::view('/home', 'home');
 Route::view('/contact', 'contact');
-Route::resource('jobs', JobController::class);
+Route::resource('jobs', JobController::class)->middleware('auth');
 
 //auth
 Route::get('/register',[RegisteredUserController::class, 'create']);
 Route::post('/register',[RegisteredUserController::class, 'store']);
 
-Route::get('/login',[SessionController::class, 'create']);
+Route::get('/login',[SessionController::class, 'create'])->name('login');
 Route::post('/login',[SessionController::class, 'store']);
-Route::get('/logout', [SessionController::class, 'destroy']);
+Route::post('/logout', [SessionController::class, 'destroy']);
 
 

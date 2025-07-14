@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Job; // Ensure you have the Job model imported
-use Illuminate\Routing\Controller; // Import the base controller class
-
+use App\Models\Job;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -43,11 +45,18 @@ class JobController extends Controller
 
     public function edit(job $job)
     {
+        /*if (Auth::user()->cannot('edit-job', $job)) {
+            dd('You are not allowed to edit this job');
+        }*/
+
+        Gate::authorize('edit-job', $job);
         return view('jobs.edit', ['job' => $job]);
     }
 
     public function update(job $job)
     {
+        Gate::authorize('edit-job', $job);
+
         request()->validate([
             'title' => 'required|min:3',
             'company' => 'required',
@@ -64,6 +73,8 @@ class JobController extends Controller
 
     public function destroy(job $job)
     {
+        Gate::authorize('edit-job', $job);
+
         $job->delete();
         return redirect('/jobs');
     }
